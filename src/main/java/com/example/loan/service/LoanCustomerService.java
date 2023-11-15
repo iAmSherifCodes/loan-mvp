@@ -8,6 +8,7 @@ import com.example.loan.dto.response.ViewLoanAgreementResponse;
 import com.example.loan.dto.response.ViewLoanApplicationStatusResponse;
 import com.example.loan.enums.LoanStatus;
 import com.example.loan.exceptions.CustomerNotFoundException;
+import com.example.loan.exceptions.IncorrectCredentials;
 import com.example.loan.model.Address;
 import com.example.loan.model.Customer;
 import com.example.loan.model.Loan;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 
 import static com.example.loan.utils.AppUtils.CUSTOMER_NOT_FOUND;
+import static com.example.loan.utils.AppUtils.INCORRECT_PASSWORD;
 
 
 @Service @AllArgsConstructor
@@ -65,7 +67,17 @@ public class LoanCustomerService implements CustomerService{
 
     @Override
     public LoanResponse login(LoginRequest loginRequest) {
-        return null;
+        String email = loginRequest.getEmail();
+        String password = loginRequest.getPassword();
+
+        Customer foundCustomer = customerRepository.findByEmail(email).orElseThrow(()-> new CustomerNotFoundException(CUSTOMER_NOT_FOUND));
+
+        LoanResponse response = new LoanResponse();
+        if (foundCustomer.getPassword().equals(password)){
+            response.setMessage(foundCustomer.getId());
+            return response;
+        }
+        throw new IncorrectCredentials(INCORRECT_PASSWORD);
     }
 
     @Override

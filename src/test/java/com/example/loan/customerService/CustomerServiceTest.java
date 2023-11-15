@@ -1,6 +1,7 @@
 package com.example.loan.customerService;
 
 import com.example.loan.dto.request.ApplyForLoanRequest;
+import com.example.loan.dto.request.LoginRequest;
 import com.example.loan.dto.request.RegisterRequest;
 import com.example.loan.dto.response.LoanResponse;
 import com.example.loan.service.CustomerService;
@@ -8,8 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.math.BigDecimal;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -49,8 +48,13 @@ public class CustomerServiceTest {
 
     @Test
     void customerCanApplyForLoan(){
-        String customerId = "6554ee488d0c721827913be1";
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setEmail("mymail@gmail.com");
+        loginRequest.setPassword("0000");
 
+        LoanResponse loginResponse = customerService.login(loginRequest);
+
+        String customerId = loginResponse.getMessage();
         String loanAmount = "69000000";
         String purpose = "SCHOLARSHIP";
         String repaymentPreference = "MONTHLY REPAYMENT";
