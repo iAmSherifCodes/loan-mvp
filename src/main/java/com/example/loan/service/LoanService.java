@@ -1,2 +1,4 @@
-package com.example.loan.service;public interface LoanService {
+package com.example.loan.service;
+
+public interface LoanService {
 }

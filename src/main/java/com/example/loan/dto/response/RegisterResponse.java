@@ -1,2 +1,9 @@
-package com.example.loan.dto.response;public class RegisterResponse {
+package com.example.loan.dto.response;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
+public class RegisterResponse {
+    private String message;
 }
