@@ -1,6 +1,7 @@
 package com.example.loan.service;
 
 import com.example.loan.dto.request.LoginRequest;
+import com.example.loan.dto.request.UpdateLoanRequest;
 import com.example.loan.dto.response.LoanResponse;
 import com.example.loan.dto.response.ReviewLoanApplicationResponse;
 import com.example.loan.model.Loan;
@@ -14,6 +15,6 @@ public interface OfficerService {
     LoanResponse acceptLoan(String loanId);
     LoanResponse rejectLoan(String loanId);
     LoanResponse generateLoanAgreement(String customerId);
-    LoanResponse updateLoanStatus(String loanId);
+    LoanResponse updateLoanStatus(UpdateLoanRequest updateLoanRequest);
 
 }
