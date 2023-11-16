@@ -4,6 +4,7 @@ import com.example.loan.dto.request.ApplyForLoanRequest;
 import com.example.loan.dto.request.LoginRequest;
 import com.example.loan.dto.request.RegisterRequest;
 import com.example.loan.dto.response.LoanResponse;
+import com.example.loan.dto.response.ViewLoanAgreementResponse;
 import com.example.loan.dto.response.ViewLoanApplicationStatusResponse;
 import com.example.loan.service.CustomerService;
 import lombok.extern.slf4j.Slf4j;
@@ -92,5 +93,12 @@ public class CustomerServiceTest {
 
         assertThat(response).isNotNull();
         assertThat(response.getLoanStatus()).isEqualTo("IN_PROGRESS");
+    }
+
+    @Test
+    void customerCanViewLoanAgreement(){
+        ViewLoanAgreementResponse response = customerService.viewLoanAgreement("6555c86ee0ba1964b8698b36");
+        log.info(response.getMessage());
+        assertThat(response.getMessage()).isNotNull();
     }
 }

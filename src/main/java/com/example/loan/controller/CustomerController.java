@@ -4,6 +4,7 @@ import com.example.loan.dto.request.ApplyForLoanRequest;
 import com.example.loan.dto.request.LoginRequest;
 import com.example.loan.dto.request.RegisterRequest;
 import com.example.loan.dto.response.LoanResponse;
+import com.example.loan.dto.response.ViewLoanAgreementResponse;
 import com.example.loan.dto.response.ViewLoanApplicationStatusResponse;
 import com.example.loan.service.CustomerService;
 import lombok.AllArgsConstructor;
@@ -34,5 +35,10 @@ public class CustomerController {
     @GetMapping("viewLoanStatus/{customerId}")
     public ResponseEntity<ViewLoanApplicationStatusResponse> viewLoanStatus(@PathVariable String customerId){
         return ResponseEntity.ok(customerService.viewLoanApplicationStatus(customerId));
+    }
+
+    @GetMapping("viewLoanAgreement/{customerId}")
+    public ResponseEntity<ViewLoanAgreementResponse> viewLoanAgreement(@PathVariable String customerId){
+        return ResponseEntity.ok(customerService.viewLoanAgreement(customerId));
     }
 }
