@@ -4,6 +4,7 @@ import com.example.loan.dto.request.ApplyForLoanRequest;
 import com.example.loan.dto.request.LoginRequest;
 import com.example.loan.dto.request.RegisterRequest;
 import com.example.loan.dto.response.LoanResponse;
+import com.example.loan.dto.response.ViewLoanApplicationStatusResponse;
 import com.example.loan.service.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -45,6 +46,18 @@ public class CustomerServiceTest {
          assertThat(response).isNotNull();
     }
 
+    @Test
+    void customerCanLogin(){
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setEmail("mymail@gmail.com");
+        loginRequest.setPassword("0000");
+
+        LoanResponse loginResponse = customerService.login(loginRequest);
+
+        log.info(loginResponse.getMessage());
+        assertThat(loginResponse).isNotNull();
+    }
+
 
     @Test
     void customerCanApplyForLoan(){
@@ -68,5 +81,16 @@ public class CustomerServiceTest {
         LoanResponse response = customerService.applyForLoan(request);
         assertThat(response).isNotNull();
         log.info(response.getMessage());
+    }
+
+
+    @Test
+    void customerCanCheckLoanStatus(){
+        String customerId = "65551f51683cff18f46449a6";
+
+        ViewLoanApplicationStatusResponse response =customerService.viewLoanApplicationStatus(customerId);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getLoanStatus()).isEqualTo("IN_PROGRESS");
     }
 }

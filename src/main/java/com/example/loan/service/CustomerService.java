@@ -11,6 +11,6 @@ public interface CustomerService {
     LoanResponse register (RegisterRequest registerRequest);
     LoanResponse login (LoginRequest loginRequest);
     LoanResponse applyForLoan(ApplyForLoanRequest loanRequest);
-    ViewLoanApplicationStatusResponse viewLoanApplicationStatus();
+    ViewLoanApplicationStatusResponse viewLoanApplicationStatus(String customerId);
     ViewLoanAgreementResponse viewLoanAgreement();
 }

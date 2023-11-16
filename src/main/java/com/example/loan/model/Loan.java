@@ -18,4 +18,5 @@ public class Loan {
     private String purpose;
     private String repaymentPreferences;
     private LoanStatus loanStatus;
+    private Customer borrower;
 }

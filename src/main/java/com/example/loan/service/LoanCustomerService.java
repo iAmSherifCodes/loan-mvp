@@ -77,7 +77,9 @@ public class LoanCustomerService implements CustomerService{
             response.setMessage(foundCustomer.getId());
             return response;
         }
-        throw new IncorrectCredentials(INCORRECT_PASSWORD);
+
+            throw new IncorrectCredentials(INCORRECT_PASSWORD);
+
     }
 
     @Override
@@ -107,8 +109,14 @@ public class LoanCustomerService implements CustomerService{
     }
 
     @Override
-    public ViewLoanApplicationStatusResponse viewLoanApplicationStatus() {
-        return null;
+    public ViewLoanApplicationStatusResponse viewLoanApplicationStatus(String customerId) {
+        Customer foundCustomer = customerRepository.findById(customerId).orElseThrow(()->new CustomerNotFoundException(CUSTOMER_NOT_FOUND));
+
+        ViewLoanApplicationStatusResponse response = new ViewLoanApplicationStatusResponse();
+        response.setLoanPurpose(foundCustomer.getLoan().getPurpose());
+        response.setLoanStatus(String.valueOf(foundCustomer.getLoan().getLoanStatus()));
+
+        return response;
     }
 
     @Override
