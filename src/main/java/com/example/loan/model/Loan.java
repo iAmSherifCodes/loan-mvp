@@ -18,5 +18,4 @@ public class Loan {
     private String repaymentPreferences;
     private LoanStatus loanStatus;
     private String loanAgreement;
-    private Customer borrower;
 }

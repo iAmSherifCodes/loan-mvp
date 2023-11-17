@@ -22,12 +22,11 @@ import java.time.LocalDate;
 
 import static com.example.loan.utils.AppUtils.*;
 
-
 @Service @AllArgsConstructor
 public class LoanCustomerService implements CustomerService{
+
     private final CustomerRepository customerRepository;
     private final LoanRepository loanRepository;
-
 
     @Override
     public LoanResponse register(RegisterRequest registerRequest) {
@@ -130,6 +129,7 @@ public class LoanCustomerService implements CustomerService{
         response.setMessage("YOUR APPLICATION IS "+ foundCustomer.getLoan().getLoanStatus() + " PLEASE REACH OUT TO OUR CUSTOMER SERVICE FOR ANY SUPPORT - " + APP_EMAIL);
         return response;
     }
+
     private String generateLoanAgreement(Customer foundCustomer){
         final StringBuilder sb = new StringBuilder();
 

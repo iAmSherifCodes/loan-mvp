@@ -22,29 +22,29 @@ public class CustomerServiceTest {
 
     @Test
     void testCustomerCanRegister(){
-         String firstName = "Sherif";
-         String lastName = "Ola";
-         String password ="0000";
-         String phoneNumber = "898989899";
-         String email = "mymail@gmail.com";
-         String mobileNumber = "9090900";
-         String street = "Soji";
-         String state = "Yaba";
-         String country = "Nigeria";
+        String firstName = "Sherif";
+        String lastName = "Ola";
+        String password ="0000";
+        String phoneNumber = "898989899";
+        String email = "mymail@gmail.com";
+        String mobileNumber = "9090900";
+        String street = "Soji";
+        String state = "Yaba";
+        String country = "Nigeria";
         RegisterRequest registerRequest = new RegisterRequest();
-         registerRequest.setCountry(country);
-         registerRequest.setFirstName(firstName);
-         registerRequest.setLastName(lastName);
-         registerRequest.setPassword(password);
-         registerRequest.setPhoneNumber(phoneNumber);
-         registerRequest.setEmail(email);
-         registerRequest.setMobileNumber(mobileNumber);
-         registerRequest.setState(state);
-         registerRequest.setStreet(street);
-         LoanResponse response = customerService.register(registerRequest);
+        registerRequest.setCountry(country);
+        registerRequest.setFirstName(firstName);
+        registerRequest.setLastName(lastName);
+        registerRequest.setPassword(password);
+        registerRequest.setPhoneNumber(phoneNumber);
+        registerRequest.setEmail(email);
+        registerRequest.setMobileNumber(mobileNumber);
+        registerRequest.setState(state);
+        registerRequest.setStreet(street);
+        LoanResponse response = customerService.register(registerRequest);
 
-         log.info("{{{{}}}}}++++++====>",response.getMessage());
-         assertThat(response).isNotNull();
+        log.info("{{{{}}}}}++++++====>",response.getMessage());
+        assertThat(response).isNotNull();
     }
 
     @Test
@@ -58,7 +58,6 @@ public class CustomerServiceTest {
         log.info(loginResponse.getMessage());
         assertThat(loginResponse).isNotNull();
     }
-
 
     @Test
     void customerCanApplyForLoan(){
@@ -83,7 +82,6 @@ public class CustomerServiceTest {
         assertThat(response).isNotNull();
         log.info(response.getMessage());
     }
-
 
     @Test
     void customerCanCheckLoanStatus(){

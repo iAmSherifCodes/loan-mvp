@@ -14,6 +14,7 @@ import java.util.List;
 
 @Service @AllArgsConstructor
 public class LoanOfficerService implements OfficerService{
+
     private final CustomerRepository customerRepository;
     private final LoanRepository loanRepository;
     private final CustomerService customerService;
