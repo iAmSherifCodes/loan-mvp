@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static com.example.loan.service.LoanOfficerService.getLoanResponse;
 import static com.example.loan.utils.AppUtils.*;
 
 @Service @AllArgsConstructor
@@ -69,15 +70,7 @@ public class LoanCustomerService implements CustomerService{
         String email = loginRequest.getEmail();
         String password = loginRequest.getPassword();
 
-        Customer foundCustomer = customerRepository.findByEmail(email).orElseThrow(()-> new CustomerNotFoundException(CUSTOMER_NOT_FOUND));
-
-        LoanResponse response = new LoanResponse();
-        if (foundCustomer.getPassword().equals(password)){
-            response.setMessage(foundCustomer.getId());
-            return response;
-        }
-
-            throw new IncorrectCredentials(INCORRECT_PASSWORD);
+        return getLoanResponse(email, customerRepository, password);
 
     }
 
