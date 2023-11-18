@@ -11,7 +11,7 @@ import java.util.List;
 public interface OfficerService {
     LoanResponse login(LoginRequest loginRequest);
     List<Loan> viewLoanApplications();
-    ReviewLoanApplicationResponse reviewLoanApplication (String customerId);
+    ReviewLoanApplicationResponse reviewLoanApplication (String email);
     LoanResponse acceptLoan(String loanId);
     LoanResponse rejectLoan(String loanId);
     LoanResponse generateLoanAgreement(String customerId);

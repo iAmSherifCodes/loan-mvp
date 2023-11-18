@@ -61,7 +61,7 @@ public class LoanOfficerService implements OfficerService{
         reviewLoanApplicationResponse.setLoanPurpose(foundCustomer.getLoan().getPurpose());
         reviewLoanApplicationResponse.setRepaymentPreference(foundCustomer.getLoan().getRepaymentPreferences());
         reviewLoanApplicationResponse.setMobileNumber(foundCustomer.getMobileNumber());
-        reviewLoanApplicationResponse.setLoanId(foundCustomer.getLoan().getId());
+        reviewLoanApplicationResponse.setEmail(foundCustomer.getEmail());
         return reviewLoanApplicationResponse;
     }
 
