@@ -1,6 +1,6 @@
 package com.example.loan.service;
 
-import com.example.loan.dto.request.LoginRequest;
+import com.example.loan.controller.OfficerLoginRequest;
 import com.example.loan.dto.request.RejectionRequest;
 import com.example.loan.dto.request.UpdateLoanRequest;
 import com.example.loan.dto.response.LoanResponse;
@@ -11,8 +11,10 @@ import com.example.loan.exceptions.CustomerNotFoundException;
 import com.example.loan.exceptions.IncorrectCredentials;
 import com.example.loan.model.Customer;
 import com.example.loan.model.Loan;
+import com.example.loan.model.Officer;
 import com.example.loan.repository.CustomerRepository;
 import com.example.loan.repository.LoanRepository;
+import com.example.loan.repository.OfficerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,12 +30,25 @@ public class LoanOfficerService implements OfficerService{
 
     private final CustomerRepository customerRepository;
     private final LoanRepository loanRepository;
+    private final OfficerRepository officerRepository;
 
 
     @Override
-    public LoanResponse login(LoginRequest loginRequest) {
-        String email = loginRequest.getEmail();
-        return getLoanResponse(email, customerRepository, OFFICER_PASSWORD);
+    public LoanResponse login(OfficerLoginRequest loginRequest){
+        String password = loginRequest.getPassword();
+
+        LoanResponse response = new LoanResponse();
+        if (password.equals(OFFICER_PASSWORD)){
+            Officer newOfficer = new Officer();
+            newOfficer.setFirstName(loginRequest.getFirstName().toUpperCase());
+            newOfficer.setLastName(loginRequest.getLastName().toUpperCase());
+            officerRepository.save(newOfficer);
+
+            response.setMessage(LOGIN_SUCCESSFUL);
+
+            return response;
+        }
+        throw new IncorrectCredentials(INCORRECT_PASSWORD);
     }
 
     public static LoanResponse getLoanResponse(String email, CustomerRepository customerRepository, String officerPassword) {
@@ -148,5 +163,10 @@ public class LoanOfficerService implements OfficerService{
         LoanResponse response = new LoanResponse();
         response.setMessage(UPDATE_MESSAGE);
         return response;
+    }
+
+    @Override
+    public Customer findCustomerById(String customerId) {
+        return customerRepository.findById(customerId).orElseThrow(()-> new CustomerNotFoundException(CUSTOMER_NOT_FOUND));
     }
 }

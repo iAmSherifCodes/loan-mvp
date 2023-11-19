@@ -31,16 +31,16 @@ public class LoanCustomerService implements CustomerService{
 
     @Override
     public LoanResponse register(RegisterRequest registerRequest) {
-        String firstName = registerRequest.getFirstName();
-        String lastName = registerRequest.getLastName();
-        String password = registerRequest.getPassword();
+        String firstName = registerRequest.getFirstName().toUpperCase();
+        String lastName = registerRequest.getLastName().toUpperCase();
+        String password = registerRequest.getPassword().toUpperCase();
 
         String phoneNumber = registerRequest.getPhoneNumber();
-        String email = registerRequest.getEmail();
+        String email = registerRequest.getEmail().toLowerCase();
         String mobileNumber = registerRequest.getMobileNumber();
-        String street = registerRequest.getStreet();
-        String state = registerRequest.getState();
-        String country = registerRequest.getCountry();
+        String street = registerRequest.getStreet().toUpperCase();
+        String state = registerRequest.getState().toUpperCase();
+        String country = registerRequest.getCountry().toUpperCase();
 
         Customer newCustomer = new Customer();
         newCustomer.setFirstName(firstName);
