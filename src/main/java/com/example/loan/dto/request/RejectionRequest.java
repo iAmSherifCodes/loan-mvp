@@ -3,8 +3,8 @@ package com.example.loan.dto.request;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
-public class UpdateLoanRequest {
+@Setter @Getter
+public class RejectionRequest {
     private String customerId;
-    private String status;
+    private String rejectionReason;
 }
