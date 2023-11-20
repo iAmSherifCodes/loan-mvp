@@ -107,6 +107,9 @@ public class OfficerServiceTest {
         LoanResponse response = customerService.applyForLoan(request);
 
         LoanResponse response1 = officerService.acceptLoan(customerId);
+        Customer customer = officerService.findCustomerById(customerId);
+        String customerLoanStatus = String.valueOf(customer.getLoan().getLoanStatus());
+        log.info("{{{}}}}=>", customerLoanStatus);
         assertThat(response1.getMessage()).isNotNull();
 
     }
@@ -142,8 +145,8 @@ public class OfficerServiceTest {
         assertThat(rejectLoanResponse.getRejectionReason()).isNotNull();
 
         Customer customer = officerService.findCustomerById(customerId);
-        LoanStatus customerLoanStatus = customer.getLoan().getLoanStatus();
-
+        String customerLoanStatus = String.valueOf(customer.getLoan().getLoanStatus());
+        log.info("{{{}}}}=>", customerLoanStatus);
         assertThat(customerLoanStatus).isNotNull();
     }
 
@@ -158,6 +161,7 @@ public class OfficerServiceTest {
         Customer customer = officerService.findCustomerById(customerId);
 
         String customerLoanAgreement = customer.getLoan().getLoanAgreement();
+        log.info(customerLoanAgreement);
         assertThat(customerLoanAgreement).isNotNull();
 
     }
@@ -180,11 +184,11 @@ public class OfficerServiceTest {
     }
 
     @Test
-    void officerCanUpdateLoanStatusToAccepted(){
+    void officerCanUpdateLoanStatusToApproved(){
         String customerId = "65551f51683cff18f46449a6";
         UpdateLoanRequest updateLoanRequest = new UpdateLoanRequest();
         updateLoanRequest.setCustomerId(customerId);
-        updateLoanRequest.setStatus("accepted");
+        updateLoanRequest.setStatus("approved");
         LoanResponse loanResponse = officerService.updateLoanStatus(updateLoanRequest);
 
         assertThat(loanResponse).isNotNull();
@@ -192,7 +196,7 @@ public class OfficerServiceTest {
 
         String customerLoanStatus = String.valueOf(customer.getLoan().getLoanStatus());
 
-        assertThat(customerLoanStatus).isEqualTo("ACCEPTED");
+        assertThat(customerLoanStatus).isEqualTo("APPROVED");
     }
 
 

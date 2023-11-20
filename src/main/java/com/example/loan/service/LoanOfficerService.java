@@ -16,6 +16,7 @@ import com.example.loan.repository.CustomerRepository;
 import com.example.loan.repository.LoanRepository;
 import com.example.loan.repository.OfficerRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -25,7 +26,7 @@ import static com.example.loan.enums.LoanStatus.APPROVED;
 import static com.example.loan.enums.LoanStatus.REJECTED;
 import static com.example.loan.utils.AppUtils.*;
 
-@Service @AllArgsConstructor
+@Service @AllArgsConstructor @Slf4j
 public class LoanOfficerService implements OfficerService{
 
     private final CustomerRepository customerRepository;
@@ -84,8 +85,7 @@ public class LoanOfficerService implements OfficerService{
     @Override
     public LoanResponse acceptLoan(String customerId) {
 
-        Customer foundCustomer = customerRepository.findById(customerId).orElseThrow(()-> new CustomerNotFoundException(CUSTOMER_NOT_FOUND));
-        foundCustomer.getLoan().setLoanStatus(APPROVED);
+        Customer foundCustomer = getAndSaveCustomer(customerId, APPROVED);
 
         LoanResponse response = new LoanResponse();
         response.setMessage("YOU HAVE APPROVED "+ foundCustomer.getFirstName()+ " " +foundCustomer.getLastName()+ " LOAN APPLICATION.");
@@ -97,12 +97,22 @@ public class LoanOfficerService implements OfficerService{
         String customerId= rejectionRequest.getCustomerId();
         String reason = rejectionRequest.getRejectionReason();
 
-        Customer foundCustomer = customerRepository.findById(customerId).orElseThrow(()-> new CustomerNotFoundException(CUSTOMER_NOT_FOUND));
-        foundCustomer.getLoan().setLoanStatus(REJECTED);
+        getAndSaveCustomer(customerId, REJECTED);
 
         RejectLoanResponse response = new RejectLoanResponse();
         response.setRejectionReason(reason);
         return response;
+    }
+
+    private Customer getAndSaveCustomer(String customerId, LoanStatus loanStatus){
+        Customer foundCustomer = customerRepository.findById(customerId).orElseThrow(()-> new CustomerNotFoundException(CUSTOMER_NOT_FOUND));
+
+        Loan foundLoan = foundCustomer.getLoan();
+        foundLoan.setLoanStatus(loanStatus);
+
+        Loan savedLoan = loanRepository.save(foundLoan);
+        foundCustomer.setLoan(savedLoan);
+         return customerRepository.save(foundCustomer);
     }
 
     @Override
@@ -144,7 +154,12 @@ public class LoanOfficerService implements OfficerService{
                 "\t" + foundCustomer.getFirstName() + " " + foundCustomer.getLastName() + " ".repeat(46) + "Sherif Awofiranye\n" +
                 "\t" + "BORROWER" + " ".repeat(45) + "Team Lead, Company";
 
-        foundCustomer.getLoan().setLoanAgreement(loanAgreement);
+        Loan foundLoan = foundCustomer.getLoan();
+        foundLoan.setLoanAgreement(loanAgreement);
+        Loan savedLoan = loanRepository.save(foundLoan);
+
+        foundCustomer.setLoan(savedLoan);
+        customerRepository.save(foundCustomer);
 
         LoanResponse response = new LoanResponse();
         response.setMessage(AGREEMENT_MESSAGE);
@@ -159,6 +174,12 @@ public class LoanOfficerService implements OfficerService{
 
         Customer foundCustomer = customerRepository.findById(customerId).orElseThrow(()-> new CustomerNotFoundException(CUSTOMER_NOT_FOUND));
         foundCustomer.getLoan().setLoanStatus(status);
+
+        Loan foundLoan = foundCustomer.getLoan();
+        foundLoan.setLoanStatus(status);
+        Loan savedLoan = loanRepository.save(foundLoan);
+        foundCustomer.setLoan(savedLoan);
+        customerRepository.save(foundCustomer);
 
         LoanResponse response = new LoanResponse();
         response.setMessage(UPDATE_MESSAGE);

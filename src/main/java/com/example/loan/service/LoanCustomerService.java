@@ -80,7 +80,6 @@ public class LoanCustomerService implements CustomerService{
 
         Customer foundCustomer = customerRepository.findById(customerId).orElseThrow(()->new CustomerNotFoundException(CUSTOMER_NOT_FOUND));
 
-
         BigDecimal loanAmount = BigDecimal.valueOf(Long.parseLong(loanRequest.getLoanAmount()));
         String purpose = loanRequest.getPurpose();
         String repaymentPreference = loanRequest.getRepaymentPreference();
