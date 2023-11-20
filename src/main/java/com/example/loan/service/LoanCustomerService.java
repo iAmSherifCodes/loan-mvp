@@ -17,7 +17,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 import static com.example.loan.service.LoanOfficerService.getLoanResponse;
 import static com.example.loan.utils.AppUtils.APP_EMAIL;
@@ -35,7 +34,6 @@ public class LoanCustomerService implements CustomerService{
         String lastName = registerRequest.getLastName().toUpperCase();
         String password = registerRequest.getPassword().toUpperCase();
 
-        String phoneNumber = registerRequest.getPhoneNumber();
         String email = registerRequest.getEmail().toLowerCase();
         String mobileNumber = registerRequest.getMobileNumber();
         String street = registerRequest.getStreet().toUpperCase();
@@ -47,7 +45,6 @@ public class LoanCustomerService implements CustomerService{
         newCustomer.setLastName(lastName);
         newCustomer.setEmail(email);
         newCustomer.setPassword(password);
-        newCustomer.setPhoneNumber(phoneNumber);
         newCustomer.setMobileNumber(mobileNumber);
         Address address = Address
                 .builder()

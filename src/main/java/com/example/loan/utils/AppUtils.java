@@ -8,4 +8,5 @@ public class AppUtils {
     public static final String UPDATE_MESSAGE = "LOAN STATUS UPDATED SUCCESSFULLY";
     public static final String AGREEMENT_MESSAGE = "LOAN AGREEMENT HAS BEEN SUCCESSFULLY GENERATED";
     public static final String LOGIN_SUCCESSFUL = "LOGIN_SUCCESSFUL";
+    public static final String NO_LOANS = "NO LOANS YET";
 }

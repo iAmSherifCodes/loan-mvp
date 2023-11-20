@@ -9,6 +9,7 @@ import com.example.loan.dto.response.ReviewLoanApplicationResponse;
 import com.example.loan.enums.LoanStatus;
 import com.example.loan.exceptions.CustomerNotFoundException;
 import com.example.loan.exceptions.IncorrectCredentials;
+import com.example.loan.exceptions.NoLoanAvailable;
 import com.example.loan.model.Customer;
 import com.example.loan.model.Loan;
 import com.example.loan.model.Officer;
@@ -74,6 +75,7 @@ public class LoanOfficerService implements OfficerService{
         ReviewLoanApplicationResponse reviewLoanApplicationResponse = new ReviewLoanApplicationResponse();
         reviewLoanApplicationResponse.setLastName(foundCustomer.getLastName());
         reviewLoanApplicationResponse.setFirstName(foundCustomer.getFirstName());
+        reviewLoanApplicationResponse.setLoanId(foundCustomer.getLoan().getId());
         reviewLoanApplicationResponse.setLoanAmount(String.valueOf(foundCustomer.getLoan().getLoanAmount()));
         reviewLoanApplicationResponse.setLoanPurpose(foundCustomer.getLoan().getPurpose());
         reviewLoanApplicationResponse.setRepaymentPreference(foundCustomer.getLoan().getRepaymentPreferences());
@@ -132,7 +134,7 @@ public class LoanOfficerService implements OfficerService{
                 "\n=> Details of BORROWER" +
                 "\n- Name ->" + " " + foundCustomer.getFirstName() + " " + foundCustomer.getLastName() +
                 "\n- Email Address ->" + " " + foundCustomer.getEmail() +
-                "\n- Phone Number ->" + " " + foundCustomer.getPhoneNumber() +
+                "\n- Phone Number ->" + " " + foundCustomer.getMobileNumber() +
                 "\n- Contact Address ->" + " " + foundCustomer.getAddress().getStreet() +
                 "\n- Contact Address ->" + " " + foundCustomer.getAddress().getState() +
                 "\n- Contact Address ->" + " " + foundCustomer.getAddress().getCountry() +
