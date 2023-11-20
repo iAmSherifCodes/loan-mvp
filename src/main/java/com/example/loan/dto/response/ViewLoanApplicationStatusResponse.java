@@ -7,4 +7,5 @@ import lombok.Setter;
 public class ViewLoanApplicationStatusResponse {
     private String loanPurpose;
     private String loanStatus;
+    private String rejectionReason;
 }

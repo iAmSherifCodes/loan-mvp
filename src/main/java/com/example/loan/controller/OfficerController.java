@@ -35,8 +35,8 @@ public class OfficerController {
         return ResponseEntity.ok(officerService.reviewLoanApplication(email));
     }
 
-    @PostMapping("accept-loan")
-    public ResponseEntity<LoanResponse> acceptLoan(@RequestBody String customerId){
+    @PostMapping("accept-loan/{customerId}")
+    public ResponseEntity<LoanResponse> acceptLoan(@PathVariable String customerId){
         return new ResponseEntity<>(officerService.acceptLoan(customerId), HttpStatus.OK);
     }
 
@@ -45,8 +45,8 @@ public class OfficerController {
         return new ResponseEntity<>(officerService.rejectLoan(rejectionRequest), HttpStatus.OK);
     }
 
-    @PostMapping("generate-agreement")
-    public ResponseEntity<LoanResponse> generateLoanAgreement(@RequestBody String customerId){
+    @PostMapping("generate-agreement/{customerId}")
+    public ResponseEntity<LoanResponse> generateLoanAgreement(@PathVariable String customerId){
         return new ResponseEntity<>(officerService.generateLoanAgreement(customerId), HttpStatus.OK);
     }
 
