@@ -9,7 +9,6 @@ import com.example.loan.dto.response.ReviewLoanApplicationResponse;
 import com.example.loan.enums.LoanStatus;
 import com.example.loan.exceptions.CustomerNotFoundException;
 import com.example.loan.exceptions.IncorrectCredentials;
-import com.example.loan.exceptions.NoLoanAvailable;
 import com.example.loan.model.Customer;
 import com.example.loan.model.Loan;
 import com.example.loan.model.Officer;

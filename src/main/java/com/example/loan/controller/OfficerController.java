@@ -40,6 +40,7 @@ public class OfficerController {
         return new ResponseEntity<>(officerService.acceptLoan(customerId), HttpStatus.OK);
     }
 
+
     @PostMapping("reject-loan")
     public ResponseEntity<RejectLoanResponse> rejectLoan(@RequestBody RejectionRequest rejectionRequest){
         return new ResponseEntity<>(officerService.rejectLoan(rejectionRequest), HttpStatus.OK);
@@ -54,7 +55,5 @@ public class OfficerController {
     public ResponseEntity<LoanResponse> updateLoanStatus(@RequestBody UpdateLoanRequest updateLoanRequest){
         return new ResponseEntity<>(officerService.updateLoanStatus(updateLoanRequest), HttpStatus.OK);
     }
-
-
 
 }
